@@ -5,7 +5,13 @@ public class Book {
     private String title;
     private String author;
 
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
     public Book() {
+
     }
 
     public String getTitle() {
@@ -22,5 +28,17 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public boolean byAuthor(String author) {
+        return author.equals(this.author);
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }
