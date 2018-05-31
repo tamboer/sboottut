@@ -25,12 +25,24 @@ public class BookService {
         printBookByAuthor(myBookList, author);
 
         listToMap();
+
+        byAuthor(myBookList, author);
     }
 
     public List<Book> getByAuthor(List<Book> bookList, String author){
         System.out.println("Get books by author " + author);
 
         return bookList.stream().filter(book -> book.byAuthor(author)).collect(Collectors.toList());
+    }
+
+    public Map<Book, Book> byAuthor(List<Book> bookList, String author){
+        System.out.println("Map books by author");
+
+        Map map = bookList.stream().collect(Collectors.toMap(Function.identity(),b -> b.byAuthor(author)));
+
+        map.forEach((x, y) -> System.out.println("Key: " + x +", value: "+ y));
+
+        return map;
     }
 
     private void printBookByAuthor(List<Book> bookList, String author) {
