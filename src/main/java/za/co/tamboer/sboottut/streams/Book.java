@@ -34,6 +34,10 @@ public class Book {
         return author.equals(this.author);
     }
 
+    public String titleUpper(){
+        return getTitle().toUpperCase();
+    }
+
     @Override
     public String toString() {
         return "Book{" +
