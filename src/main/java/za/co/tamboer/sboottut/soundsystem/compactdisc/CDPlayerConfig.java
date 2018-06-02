@@ -1,4 +1,4 @@
-package za.co.tamboer.sboottut.soundsystem;
+package za.co.tamboer.sboottut.soundsystem.compactdisc;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
