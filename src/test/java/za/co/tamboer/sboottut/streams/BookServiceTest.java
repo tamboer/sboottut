@@ -20,7 +20,8 @@ public class BookServiceTest {
     @Autowired
     private Book book;
 
-    private BookService bookService = new BookService();
+    @Autowired
+    private BookService bookService;
 
     @Test
     public void bookShouldNotBeNull() {
