@@ -1,9 +1,9 @@
-package za.co.tamboer.sboottut.soundsystem.compactdisc;
+package za.co.tamboer.sboottut.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "za.co.tamboer.sboottut.soundsystem")
 public class CDPlayerConfig {
 }
