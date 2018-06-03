@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AppleFixtures {
 
-    public List<Apple> createAppleList() {
+    public static List<Apple> createAppleList() {
         Apple redApple = new Apple("red");
         Apple greenApple = new Apple("green");
         greenApple.setWeight(151.0f);

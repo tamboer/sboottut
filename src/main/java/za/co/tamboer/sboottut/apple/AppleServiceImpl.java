@@ -1,11 +1,14 @@
 package za.co.tamboer.sboottut.apple;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.function.Predicate;
 
+@Service
 public class AppleServiceImpl implements AppleService {
 
-    Apples inventory = new Apples();
+    private Apples inventory;
 
     @Override
     public void addToInventory(List<Apple> apples) {
