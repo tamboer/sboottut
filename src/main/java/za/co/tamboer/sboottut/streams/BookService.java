@@ -29,6 +29,14 @@ public class BookService {
         printBookByAuthor(myBookList, author);
 
         System.out.println("--------------------------------------------");
+        System.out.println("--------------------------------------------");
+        System.out.println("--------------------------------------------");
+        System.out.println("--------------------------------------------");
+        System.out.println(booksbyAuthor(myBookList));
+
+
+
+        System.out.println("--------------------------------------------");
         System.out.println("Did Author Write It"  + "\n");
         didAuthorWriteIt(myBookList, author);
 
@@ -65,6 +73,10 @@ public class BookService {
         map.forEach((x, y) -> System.out.println("\t\tTitle: " + x +", "+ y));
 
         return map;
+    }
+
+    public Map<String, List<Book>> booksbyAuthor(List<Book> books){
+        return books.stream().collect(Collectors.groupingBy(Book::getAuthor));
     }
 
     private void printBookByAuthor(List<Book> bookList, String author) {
