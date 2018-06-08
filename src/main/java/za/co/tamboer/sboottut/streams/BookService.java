@@ -29,10 +29,16 @@ public class BookService {
         printBookByAuthor(myBookList, author);
 
         System.out.println("--------------------------------------------");
-        System.out.println("--------------------------------------------");
-        System.out.println("--------------------------------------------");
-        System.out.println("--------------------------------------------");
+        System.out.println("Books by Author");
         System.out.println(booksbyAuthor(myBookList));
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Books by this Author");
+        System.out.println(booksbyAuthor(myBookList, author));
+
+        System.out.println("--------------------------------------------");
+        System.out.println("Books by exclude this Author");
+        System.out.println(booksbyExcludeAuthor(myBookList, author));
 
 
 
@@ -79,6 +85,18 @@ public class BookService {
         return books.stream().collect(Collectors.groupingBy(Book::getAuthor));
     }
 
+    public Map<String, List<Book>> booksbyAuthor(List<Book> books, String author){
+        return books.stream()
+                .filter(book -> author.equals(book.getAuthor()))
+                .collect(Collectors.groupingBy(Book::getAuthor));
+    }
+
+    public Map<String, List<Book>> booksbyExcludeAuthor(List<Book> books, String author){
+        return books.stream()
+                .filter(book -> !author.equals(book.getAuthor()))
+                .collect(Collectors.groupingBy(Book::getAuthor));
+    }
+
     private void printBookByAuthor(List<Book> bookList, String author) {
         System.out.println("Print books by author " + author + "\n");
 
@@ -88,6 +106,7 @@ public class BookService {
                 .sorted()
                 .forEach(System.out::println);
     }
+
     private List<Book> getBooks() {
         return Arrays.asList(
                 new Book("Spring in action", "Craig Walls"),
