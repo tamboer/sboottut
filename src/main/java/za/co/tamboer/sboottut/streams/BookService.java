@@ -146,6 +146,7 @@ public class BookService {
                 new Book("Spring in action", "Craig Walls", 10.5),
                 new Book("Java 8 in action", "Uma", 20.5),
                 new Book("Elephantoms", "Lyall Watson", 50.5),
+                new Book("Elephantoms Hardcover", "Lyall Watson", 99.5),
                 new Book("JavaSpring101", "Craig Walls", 30.5),
                 new Book("Scrum101", "Bob Jones", 15.5),
                 new Book("Java8", "Uma", 5.5)
