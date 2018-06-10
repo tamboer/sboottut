@@ -22,41 +22,41 @@ public class BookService {
         List<Book> myBookList = getBooks();
         String author = "Lyall Watson";
 
-        lineSeperator("getByAuthor");
+        lineSeparator("getByAuthor");
         System.out.println(getByAuthor(myBookList, author));
 
-        lineSeperator("printBookByAuthor");
+        lineSeparator("printBookByAuthor");
         printBookByAuthor(myBookList, author);
 
-        lineSeperator("booksbyAuthor");
+        lineSeparator("booksbyAuthor");
         System.out.println(booksbyAuthor(myBookList));
 
-        lineSeperator("booksbyAuthor");
+        lineSeparator("booksbyAuthor");
         System.out.println(booksbyAuthor(myBookList, author));
 
-        lineSeperator("booksbyExcludeAuthor");
+        lineSeparator("booksbyExcludeAuthor");
         System.out.println(booksbyExcludeAuthor(myBookList, author));
 
-        lineSeperator("booksbyPrice");
+        lineSeparator("booksbyPrice");
         System.out.println(booksbyPrice(myBookList, 10.5));
 
-        lineSeperator("booksAvgPrice");
+        lineSeparator("booksAvgPrice");
         System.out.println(booksAvgPrice(myBookList));
 
-        lineSeperator("bookPriceSum");
+        lineSeparator("bookPriceSum");
         System.out.println(bookPriceSum(myBookList));
 
-        lineSeperator("didAuthorWriteIt"  + "\n");
+        lineSeparator("didAuthorWriteIt"  + "\n");
         didAuthorWriteIt(myBookList, author);
 
-        lineSeperator("stringStringMap");
+        lineSeparator("stringStringMap");
         stringStringMap(myBookList);
 
-        lineSeperator("stringBookMap");
+        lineSeparator("stringBookMap");
         stringBookMap(myBookList);
     }
 
-    private void lineSeperator(String header) {
+    private void lineSeparator(String header) {
         System.out.println("--------------------------------------------");
         System.out.println(header);
     }
