@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -21,37 +22,43 @@ public class BookService {
         List<Book> myBookList = getBooks();
         String author = "Lyall Watson";
 
-        System.out.println("============================================");
-        System.out.println("Get books by author " + author + "\n");
-        getByAuthor(myBookList, author);
+        lineSeperator("getByAuthor");
+        System.out.println(getByAuthor(myBookList, author));
 
-        System.out.println("--------------------------------------------");
+        lineSeperator("printBookByAuthor");
         printBookByAuthor(myBookList, author);
 
-        System.out.println("--------------------------------------------");
-        System.out.println("Books by Author");
+        lineSeperator("booksbyAuthor");
         System.out.println(booksbyAuthor(myBookList));
 
-        System.out.println("--------------------------------------------");
-        System.out.println("Books by this Author");
+        lineSeperator("booksbyAuthor");
         System.out.println(booksbyAuthor(myBookList, author));
 
-        System.out.println("--------------------------------------------");
-        System.out.println("Books by exclude this Author");
+        lineSeperator("booksbyExcludeAuthor");
         System.out.println(booksbyExcludeAuthor(myBookList, author));
 
+        lineSeperator("booksbyPrice");
+        System.out.println(booksbyPrice(myBookList, 10.5));
 
+        lineSeperator("booksAvgPrice");
+        System.out.println(booksAvgPrice(myBookList));
 
-        System.out.println("--------------------------------------------");
-        System.out.println("Did Author Write It"  + "\n");
+        lineSeperator("bookPriceSum");
+        System.out.println(bookPriceSum(myBookList));
+
+        lineSeperator("didAuthorWriteIt"  + "\n");
         didAuthorWriteIt(myBookList, author);
 
-        System.out.println("--------------------------------------------");
+        lineSeperator("stringStringMap");
         stringStringMap(myBookList);
 
-        System.out.println("--------------------------------------------");
+        lineSeperator("stringBookMap");
         stringBookMap(myBookList);
-        System.out.println("============================================");
+    }
+
+    private void lineSeperator(String header) {
+        System.out.println("--------------------------------------------");
+        System.out.println(header);
     }
 
     public List<Book> getByAuthor(List<Book> bookList, String author){
@@ -97,9 +104,25 @@ public class BookService {
                 .collect(Collectors.groupingBy(Book::getAuthor));
     }
 
-    private void printBookByAuthor(List<Book> bookList, String author) {
-        System.out.println("Print books by author " + author + "\n");
+    public Map<String, List<Book>> booksbyPrice(List<Book> books, Double price){
+        return books.stream()
+                .filter(book -> book.getPrice().doubleValue() == price)
+                .collect(Collectors.groupingBy(Book::getAuthor));
+    }
 
+    public OptionalDouble booksAvgPrice(List<Book> books){
+        return books.stream()
+                .mapToDouble(book -> book.getPrice())
+                .average();
+    }
+
+    public double bookPriceSum(List<Book> books){
+        return books.stream()
+                .mapToDouble(book -> book.getPrice())
+                .sum();
+    }
+
+    private void printBookByAuthor(List<Book> bookList, String author) {
         bookList.stream()
                 .filter(b -> b.byAuthor(author))
                 .map(b -> b.toString().toUpperCase())
@@ -109,12 +132,12 @@ public class BookService {
 
     private List<Book> getBooks() {
         return Arrays.asList(
-                new Book("Spring in action", "Craig Walls"),
-                new Book("Java 8 in action", "Uma"),
-                new Book("Elephantoms", "Lyall Watson"),
-                new Book("JavaSpring101", "Craig Walls"),
-                new Book("Scrum101", "Bob Jones"),
-                new Book("Java8", "Uma")
+                new Book("Spring in action", "Craig Walls", 10.5),
+                new Book("Java 8 in action", "Uma", 20.5),
+                new Book("Elephantoms", "Lyall Watson", 50.5),
+                new Book("JavaSpring101", "Craig Walls", 30.5),
+                new Book("Scrum101", "Bob Jones", 15.5),
+                new Book("Java8", "Uma", 5.5)
         );
     }
 }
