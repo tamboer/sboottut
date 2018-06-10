@@ -18,7 +18,7 @@ public class BookService {
     public BookService() {
     }
 
-    public void perform(){
+    public void perform() {
         List<Book> myBookList = getBooks();
         String author = "Lyall Watson";
 
@@ -46,7 +46,10 @@ public class BookService {
         lineSeparator("bookPriceSum");
         System.out.println(bookPriceSum(myBookList));
 
-        lineSeparator("didAuthorWriteIt"  + "\n");
+        lineSeparator("booksPerAuthorPriceSum");
+        System.out.println(booksPerAuthorPriceSum(myBookList,author));
+
+        lineSeparator("didAuthorWriteIt" + "\n");
         didAuthorWriteIt(myBookList, author);
 
         lineSeparator("stringStringMap");
@@ -61,13 +64,13 @@ public class BookService {
         System.out.println(header);
     }
 
-    public List<Book> getByAuthor(List<Book> bookList, String author){
+    public List<Book> getByAuthor(List<Book> bookList, String author) {
         return bookList.stream().filter(book -> book.byAuthor(author)).collect(Collectors.toList());
     }
 
-    public Map<Book, Boolean> didAuthorWriteIt(List<Book> bookList, String author){
-        Map map = bookList.stream().collect(Collectors.toMap(Function.identity(),b -> b.byAuthor(author)));
-        map.forEach((x, y) -> System.out.println("\t\t" + x +": " + y));
+    public Map<Book, Boolean> didAuthorWriteIt(List<Book> bookList, String author) {
+        Map map = bookList.stream().collect(Collectors.toMap(Function.identity(), b -> b.byAuthor(author)));
+        map.forEach((x, y) -> System.out.println("\t\t" + x + ": " + y));
         return map;
     }
 
@@ -75,7 +78,7 @@ public class BookService {
         Map<String, String> map = list.stream()
                 //.collect(Collectors.toMap(Book::titleUpper, Book::getAuthor));
                 .collect(Collectors.toMap(b -> b.getTitle().toUpperCase(), Book::getAuthor));
-        map.forEach((x, y) -> System.out.println("Title: " + x +", Author: "+ y));
+        map.forEach((x, y) -> System.out.println("Title: " + x + ", Author: " + y));
 
         return map;
     }
@@ -83,44 +86,52 @@ public class BookService {
     public Map<String, Book> stringBookMap(List<Book> list) {
         Map<String, Book> map = list.stream()
                 .collect(Collectors.toMap(Book::getTitle, b -> b));
-        map.forEach((x, y) -> System.out.println("\t\tTitle: " + x +", "+ y));
+        map.forEach((x, y) -> System.out.println("\t\tTitle: " + x + ", " + y));
 
         return map;
     }
 
-    public Map<String, List<Book>> booksbyAuthor(List<Book> books){
+    public Map<String, List<Book>> booksbyAuthor(List<Book> books) {
         return books.stream().collect(Collectors.groupingBy(Book::getAuthor));
     }
 
-    public Map<String, List<Book>> booksbyAuthor(List<Book> books, String author){
+    public Map<String, List<Book>> booksbyAuthor(List<Book> books, String author) {
         return books.stream()
                 .filter(book -> author.equals(book.getAuthor()))
                 .collect(Collectors.groupingBy(Book::getAuthor));
     }
 
-    public Map<String, List<Book>> booksbyExcludeAuthor(List<Book> books, String author){
+    public Map<String, List<Book>> booksbyExcludeAuthor(List<Book> books, String author) {
         return books.stream()
                 .filter(book -> !author.equals(book.getAuthor()))
                 .collect(Collectors.groupingBy(Book::getAuthor));
     }
 
-    public Map<String, List<Book>> booksbyPrice(List<Book> books, Double price){
+    public Map<String, List<Book>> booksbyPrice(List<Book> books, Double price) {
         return books.stream()
                 .filter(book -> book.getPrice().doubleValue() == price)
                 .collect(Collectors.groupingBy(Book::getAuthor));
     }
 
-    public OptionalDouble booksAvgPrice(List<Book> books){
+    public OptionalDouble booksAvgPrice(List<Book> books) {
         return books.stream()
                 .mapToDouble(book -> book.getPrice())
                 .average();
     }
 
-    public double bookPriceSum(List<Book> books){
+    public double bookPriceSum(List<Book> books) {
         return books.stream()
                 .mapToDouble(book -> book.getPrice())
                 .sum();
     }
+
+    public double booksPerAuthorPriceSum(List<Book> books, String author) {
+        return books.stream()
+                .filter(book -> author.equals(book.getAuthor()))
+                .mapToDouble(book -> book.getPrice())
+                .sum();
+    }
+
 
     private void printBookByAuthor(List<Book> bookList, String author) {
         bookList.stream()
