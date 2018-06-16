@@ -27,6 +27,7 @@ public class BookService {
         lineSeparator("getByAuthor");
         System.out.println(getByAuthor(myBookList, author));
 
+        // https://www.mkyong.com/java8/java-8-collectors-groupingby-and-mapping-example/
         lineSeparator("printBookByAuthor");
         printBookByAuthor(myBookList, author);
 
