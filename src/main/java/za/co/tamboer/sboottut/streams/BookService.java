@@ -50,6 +50,9 @@ public class BookService {
         lineSeparator("booksPerAuthorPriceSum");
         System.out.println(booksPerAuthorPriceSum(myBookList,author));
 
+        lineSeparator("allBbooksPerAuthorPriceSummary");
+        System.out.println(allBbooksPerAuthorPriceSummary(myBookList));
+
         lineSeparator("allBbooksPerAuthorPriceSum");
         System.out.println(allBbooksPerAuthorPriceSum(myBookList));
 
@@ -136,11 +139,18 @@ public class BookService {
                 .sum();
     }
 
-    public Map<String, DoubleSummaryStatistics> allBbooksPerAuthorPriceSum(List<Book> books) {
+    public Map<String, DoubleSummaryStatistics> allBbooksPerAuthorPriceSummary(List<Book> books) {
         return books.stream()
                 .collect(
                         Collectors.groupingBy(
                                 Book::getAuthor, Collectors.summarizingDouble(Book::getPrice)
+                        ));
+    }
+    public Map<String, Double> allBbooksPerAuthorPriceSum(List<Book> books) {
+        return books.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Book::getAuthor, Collectors.summingDouble(Book::getPrice)
                         ));
     }
 
