@@ -3,6 +3,7 @@ package za.co.tamboer.sboottut.streams;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalDouble;
@@ -48,6 +49,9 @@ public class BookService {
 
         lineSeparator("booksPerAuthorPriceSum");
         System.out.println(booksPerAuthorPriceSum(myBookList,author));
+
+        lineSeparator("allBbooksPerAuthorPriceSum");
+        System.out.println(allBbooksPerAuthorPriceSum(myBookList));
 
         lineSeparator("didAuthorWriteIt" + "\n");
         didAuthorWriteIt(myBookList, author);
@@ -130,6 +134,14 @@ public class BookService {
                 .filter(book -> author.equals(book.getAuthor()))
                 .mapToDouble(book -> book.getPrice())
                 .sum();
+    }
+
+    public Map<String, DoubleSummaryStatistics> allBbooksPerAuthorPriceSum(List<Book> books) {
+        return books.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Book::getAuthor, Collectors.summarizingDouble(Book::getPrice)
+                        ));
     }
 
 
