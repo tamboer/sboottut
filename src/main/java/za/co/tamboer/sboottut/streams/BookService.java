@@ -7,6 +7,7 @@ import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalDouble;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,9 @@ public class BookService {
 
         lineSeparator("allBbooksPerAuthorPriceSum");
         System.out.println(allBbooksPerAuthorPriceSum(myBookList));
+
+        lineSeparator("allBbooksPerAuthorPriceSumSet");
+        System.out.println(allBbooksPerAuthorPriceSumSet(myBookList));
 
         lineSeparator("didAuthorWriteIt" + "\n");
         didAuthorWriteIt(myBookList, author);
@@ -146,6 +150,7 @@ public class BookService {
                                 Book::getAuthor, Collectors.summarizingDouble(Book::getPrice)
                         ));
     }
+
     public Map<String, Double> allBbooksPerAuthorPriceSum(List<Book> books) {
         return books.stream()
                 .collect(
@@ -153,6 +158,17 @@ public class BookService {
                                 Book::getAuthor, Collectors.summingDouble(Book::getPrice)
                         ));
     }
+
+    public Map<Double, Set<String>> allBbooksPerAuthorPriceSumSet(List<Book> books) {
+        return books.stream()
+                .collect(
+                        Collectors.groupingBy(Book::getPrice,
+                                Collectors.mapping(Book::getAuthor, Collectors.toSet())
+                        )
+                );
+    }
+
+
 
 
     private void printBookByAuthor(List<Book> bookList, String author) {
@@ -167,6 +183,7 @@ public class BookService {
         return Arrays.asList(
                 new Book("Spring in action", "Craig Walls", 10.5),
                 new Book("Java 8 in action", "Uma", 20.5),
+                new Book("Java 8 in action - Discount", "Uma", 15.5),
                 new Book("Elephantoms", "Lyall Watson", 50.5),
                 new Book("Elephantoms Hardcover", "Lyall Watson", 99.5),
                 new Book("JavaSpring101", "Craig Walls", 30.5),
