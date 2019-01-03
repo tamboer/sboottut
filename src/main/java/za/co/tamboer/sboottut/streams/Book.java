@@ -2,6 +2,8 @@ package za.co.tamboer.sboottut.streams;
 
 import org.springframework.stereotype.Component;
 
+import java.time.OffsetDateTime;
+
 @Component
 public class Book {
 
@@ -9,10 +11,24 @@ public class Book {
     private String author;
     private Double price;
 
+    //@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    //@JsonFormat(pattern = "YYYY-MM-dd HH:mm")
+    private OffsetDateTime updated;
+
+
+    public Book(String title, String author, Double price, OffsetDateTime updated) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.updated = updated;
+
+    }
+
     public Book(String title, String author, Double price) {
         this.title = title;
         this.author = author;
         this.price = price;
+
     }
 
     public Book(String title, String author) {
@@ -48,6 +64,14 @@ public class Book {
         this.price = price;
     }
 
+    public OffsetDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(OffsetDateTime updated) {
+        this.updated = updated;
+    }
+
     public boolean byAuthor(String author) {
         return author.equals(this.author);
     }
@@ -61,6 +85,7 @@ public class Book {
         return "Book{" +
                 "title='" + title + '\'' +
                 ", author='" + author + '\'' +
+                ", updated='" + updated + '\'' +
                 '}';
     }
 }
