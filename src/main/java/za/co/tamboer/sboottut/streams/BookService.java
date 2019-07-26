@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -82,6 +83,27 @@ public class BookService {
 
         lineSeparator("stringBookMap");
         stringBookMap(myBookList);
+
+        Locale locale = new Locale("ru");
+        lineSeparator("countries");
+        final List<Country> countries = getCountries(locale);
+
+        final List<String> countryCollection = countries.stream().map(country -> country.getDescription()).collect(Collectors.toList());
+        System.out.println(countryCollection);
+
+    }
+
+
+    public List<Country> getCountries(final Locale locale) {
+        return Arrays
+                .stream(Locale.getISOCountries())
+                .map(isoCountry -> {
+                    Locale l = new Locale("", isoCountry);
+                    String description = l.getDisplayCountry(locale);
+                    return new Country(isoCountry, description);
+                })
+                .sorted(Comparator.comparing(Country::getDescription))
+                .collect(Collectors.toList());
     }
 
     private void lineSeparator(String header) {
